@@ -1,0 +1,20 @@
+version: "3.9"
+
+services:
+  socks5-proxy:
+    # Replace this with the name you give your image on Docker Hub
+    image: boingbasti/socks5-proxy:latest
+    build: .
+    container_name: socks5-proxy
+    ports:
+      - "1080:1080"
+    environment:
+      # --- CONFIGURATION (Examples) ---
+      # Port the proxy listens on. Default is 1080.
+      - PROXY_PORT=1080
+      # Allows access for the entire 192.168.1.0/24 subnet
+      - ALLOWED_IPS=192.168.1.0/24
+      # Optional authentication (uncomment if needed)
+      #- PROXY_USER=myuser
+      #- PROXY_PASSWORD=mypassword
+    restart: unless-stopped
