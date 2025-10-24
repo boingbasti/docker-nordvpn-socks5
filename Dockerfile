@@ -13,6 +13,11 @@ RUN go mod init socks5 \
 FROM alpine:3.20
 WORKDIR /app/
 
+# --- HINZUGEFÜGT ---
+# Installiere curl, benötigt für den Healthcheck
+RUN apk add --no-cache curl
+# --- ENDE ---
+
 # Erstelle einen dedizierten User ohne Shell
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
