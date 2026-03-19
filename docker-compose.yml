@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   socks5-proxy:
     # Replace this with the name you give your image on Docker Hub

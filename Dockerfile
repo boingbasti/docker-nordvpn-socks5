@@ -1,6 +1,5 @@
 # Build stage
-# Verwende die neueste stabile Go-Version (aktuell 1.25.2)
-FROM golang:1.25.2-alpine AS builder
+FROM golang:1.26.1-alpine3.23 AS builder
 WORKDIR /app
 
 COPY main.go .
@@ -9,25 +8,22 @@ RUN go mod init socks5 \
  && go build -o socks5proxy main.go
 
 # Runtime stage
-# Pinne die Alpine-Version (aktuell 3.20)
-FROM alpine:3.20
+FROM alpine:3.23
 WORKDIR /app/
 
-# --- HINZUGEFÜGT ---
-# Installiere curl, benötigt für den Healthcheck
+# Install curl for healthcheck
 RUN apk add --no-cache curl
-# --- ENDE ---
 
-# Erstelle einen dedizierten User ohne Shell
+# Create dedicated user without shell
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
-# Kopiere die Binary
+# Copy binary
 COPY --from=builder /app/socks5proxy .
 
-# Setze die Berechtigungen für den neuen User
+# Set permissions for the new user
 RUN chown appuser:appgroup socks5proxy
 
-# Wechsle zum neuen User
+# Switch to non-root user
 USER appuser
 
 EXPOSE 1080

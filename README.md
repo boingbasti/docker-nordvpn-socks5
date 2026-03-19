@@ -45,8 +45,6 @@ A secure, IPv4-only SOCKS5 proxy for Docker, designed to run behind a VPN gatewa
 Run the SOCKS5 proxy directly and expose it to your host machine.
 
 ```yaml
-version: "3.9"
-
 services:
   socks5-proxy:
     image: boingbasti/nordvpn-socks5:latest
