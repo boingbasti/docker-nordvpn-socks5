@@ -1,5 +1,5 @@
 # Build stage
-FROM golang:1.26.1-alpine3.23 AS builder
+FROM golang:1.27.3-alpine3.24 AS builder
 WORKDIR /app
 
 COPY main.go .
@@ -8,7 +8,7 @@ RUN go mod init socks5 \
  && go build -o socks5proxy main.go
 
 # Runtime stage
-FROM alpine:3.23
+FROM alpine:3.24
 WORKDIR /app/
 
 # Install curl for healthcheck
